@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="etudiantcsharpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="IdCours" />
+          </Key>
+          <Property Name="IdCours" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomCours" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Etudiant">
+          <Key>
+            <PropertyRef Name="idEtu" />
+          </Key>
+          <Property Name="idEtu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomEtu" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prenomEtu" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="filiereEtu" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Presence">
+          <Key>
+            <PropertyRef Name="IdPresence" />
+          </Key>
+          <Property Name="IdPresence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatePresence" Type="date" Nullable="false" />
+          <Property Name="HeureDebut" Type="time" Precision="7" Nullable="false" />
+          <Property Name="HeureFin" Type="time" Precision="7" Nullable="false" />
+          <Property Name="idEtu" Type="int" />
+          <Property Name="IdCours" Type="int" />
+        </EntityType>
+        <Association Name="FK__Presence__IdCour__286302EC">
+          <End Role="Cours" Type="Self.Cours" Multiplicity="0..1" />
+          <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="IdCours" />
+            </Principal>
+            <Dependent Role="Presence">
+              <PropertyRef Name="IdCours" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Presence__idEtu__276EDEB3">
+          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="0..1" />
+          <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etudiant">
+              <PropertyRef Name="idEtu" />
+            </Principal>
+            <Dependent Role="Presence">
+              <PropertyRef Name="idEtu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="etudiantcsharpModelStoreContainer">
+          <EntitySet Name="Cours" EntityType="Self.Cours" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Etudiant" EntityType="Self.Etudiant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Presence" EntityType="Self.Presence" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Presence__IdCour__286302EC" Association="Self.FK__Presence__IdCour__286302EC">
+            <End Role="Cours" EntitySet="Cours" />
+            <End Role="Presence" EntitySet="Presence" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Presence__idEtu__276EDEB3" Association="Self.FK__Presence__idEtu__276EDEB3">
+            <End Role="Etudiant" EntitySet="Etudiant" />
+            <End Role="Presence" EntitySet="Presence" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="etudiantcsharpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="IdCours" />
+          </Key>
+          <Property Name="IdCours" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomCours" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Presence" Relationship="Self.FK__Presence__IdCour__286302EC" FromRole="Cours" ToRole="Presence" />
+        </EntityType>
+        <EntityType Name="Etudiant">
+          <Key>
+            <PropertyRef Name="idEtu" />
+          </Key>
+          <Property Name="idEtu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomEtu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenomEtu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="filiereEtu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Presence" Relationship="Self.FK__Presence__idEtu__276EDEB3" FromRole="Etudiant" ToRole="Presence" />
+        </EntityType>
+        <EntityType Name="Presence">
+          <Key>
+            <PropertyRef Name="IdPresence" />
+          </Key>
+          <Property Name="IdPresence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatePresence" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HeureDebut" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="HeureFin" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="idEtu" Type="Int32" />
+          <Property Name="IdCours" Type="Int32" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK__Presence__IdCour__286302EC" FromRole="Presence" ToRole="Cours" />
+          <NavigationProperty Name="Etudiant" Relationship="Self.FK__Presence__idEtu__276EDEB3" FromRole="Presence" ToRole="Etudiant" />
+        </EntityType>
+        <Association Name="FK__Presence__IdCour__286302EC">
+          <End Role="Cours" Type="Self.Cours" Multiplicity="0..1" />
+          <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="IdCours" />
+            </Principal>
+            <Dependent Role="Presence">
+              <PropertyRef Name="IdCours" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Presence__idEtu__276EDEB3">
+          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="0..1" />
+          <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etudiant">
+              <PropertyRef Name="idEtu" />
+            </Principal>
+            <Dependent Role="Presence">
+              <PropertyRef Name="idEtu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="etudiantcsharpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cours" EntityType="Self.Cours" />
+          <EntitySet Name="Etudiant" EntityType="Self.Etudiant" />
+          <EntitySet Name="Presence" EntityType="Self.Presence" />
+          <AssociationSet Name="FK__Presence__IdCour__286302EC" Association="Self.FK__Presence__IdCour__286302EC">
+            <End Role="Cours" EntitySet="Cours" />
+            <End Role="Presence" EntitySet="Presence" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Presence__idEtu__276EDEB3" Association="Self.FK__Presence__idEtu__276EDEB3">
+            <End Role="Etudiant" EntitySet="Etudiant" />
+            <End Role="Presence" EntitySet="Presence" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="etudiantcsharpModelStoreContainer" CdmEntityContainer="etudiantcsharpEntities">
+          <EntitySetMapping Name="Cours">
+            <EntityTypeMapping TypeName="etudiantcsharpModel.Cours">
+              <MappingFragment StoreEntitySet="Cours">
+                <ScalarProperty Name="IdCours" ColumnName="IdCours" />
+                <ScalarProperty Name="NomCours" ColumnName="NomCours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Etudiant">
+            <EntityTypeMapping TypeName="etudiantcsharpModel.Etudiant">
+              <MappingFragment StoreEntitySet="Etudiant">
+                <ScalarProperty Name="idEtu" ColumnName="idEtu" />
+                <ScalarProperty Name="nomEtu" ColumnName="nomEtu" />
+                <ScalarProperty Name="prenomEtu" ColumnName="prenomEtu" />
+                <ScalarProperty Name="filiereEtu" ColumnName="filiereEtu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Presence">
+            <EntityTypeMapping TypeName="etudiantcsharpModel.Presence">
+              <MappingFragment StoreEntitySet="Presence">
+                <ScalarProperty Name="IdPresence" ColumnName="IdPresence" />
+                <ScalarProperty Name="DatePresence" ColumnName="DatePresence" />
+                <ScalarProperty Name="HeureDebut" ColumnName="HeureDebut" />
+                <ScalarProperty Name="HeureFin" ColumnName="HeureFin" />
+                <ScalarProperty Name="idEtu" ColumnName="idEtu" />
+                <ScalarProperty Name="IdCours" ColumnName="IdCours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

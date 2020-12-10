@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="etudiantcsharpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="IdCours" />
+    </Key>
+    <Property Name="IdCours" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomCours" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Presence" Relationship="Self.FK__Presence__IdCour__286302EC" FromRole="Cours" ToRole="Presence" />
+  </EntityType>
+  <EntityType Name="Etudiant">
+    <Key>
+      <PropertyRef Name="idEtu" />
+    </Key>
+    <Property Name="idEtu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nomEtu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prenomEtu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="filiereEtu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Presence" Relationship="Self.FK__Presence__idEtu__276EDEB3" FromRole="Etudiant" ToRole="Presence" />
+  </EntityType>
+  <EntityType Name="Presence">
+    <Key>
+      <PropertyRef Name="IdPresence" />
+    </Key>
+    <Property Name="IdPresence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DatePresence" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="HeureDebut" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="HeureFin" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="idEtu" Type="Int32" />
+    <Property Name="IdCours" Type="Int32" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK__Presence__IdCour__286302EC" FromRole="Presence" ToRole="Cours" />
+    <NavigationProperty Name="Etudiant" Relationship="Self.FK__Presence__idEtu__276EDEB3" FromRole="Presence" ToRole="Etudiant" />
+  </EntityType>
+  <Association Name="FK__Presence__IdCour__286302EC">
+    <End Role="Cours" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cours">
+        <PropertyRef Name="IdCours" />
+      </Principal>
+      <Dependent Role="Presence">
+        <PropertyRef Name="IdCours" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Presence__idEtu__276EDEB3">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="idEtu" />
+      </Principal>
+      <Dependent Role="Presence">
+        <PropertyRef Name="idEtu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="etudiantcsharpEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cours" EntityType="Self.Cours" />
+    <EntitySet Name="Etudiant" EntityType="Self.Etudiant" />
+    <EntitySet Name="Presence" EntityType="Self.Presence" />
+    <AssociationSet Name="FK__Presence__IdCour__286302EC" Association="Self.FK__Presence__IdCour__286302EC">
+      <End Role="Cours" EntitySet="Cours" />
+      <End Role="Presence" EntitySet="Presence" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Presence__idEtu__276EDEB3" Association="Self.FK__Presence__idEtu__276EDEB3">
+      <End Role="Etudiant" EntitySet="Etudiant" />
+      <End Role="Presence" EntitySet="Presence" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

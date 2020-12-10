@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="etudiantcsharpModelStoreContainer" CdmEntityContainer="etudiantcsharpEntities">
+    <EntitySetMapping Name="Cours">
+      <EntityTypeMapping TypeName="etudiantcsharpModel.Cours">
+        <MappingFragment StoreEntitySet="Cours">
+          <ScalarProperty Name="IdCours" ColumnName="IdCours" />
+          <ScalarProperty Name="NomCours" ColumnName="NomCours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Etudiant">
+      <EntityTypeMapping TypeName="etudiantcsharpModel.Etudiant">
+        <MappingFragment StoreEntitySet="Etudiant">
+          <ScalarProperty Name="idEtu" ColumnName="idEtu" />
+          <ScalarProperty Name="nomEtu" ColumnName="nomEtu" />
+          <ScalarProperty Name="prenomEtu" ColumnName="prenomEtu" />
+          <ScalarProperty Name="filiereEtu" ColumnName="filiereEtu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Presence">
+      <EntityTypeMapping TypeName="etudiantcsharpModel.Presence">
+        <MappingFragment StoreEntitySet="Presence">
+          <ScalarProperty Name="IdPresence" ColumnName="IdPresence" />
+          <ScalarProperty Name="DatePresence" ColumnName="DatePresence" />
+          <ScalarProperty Name="HeureDebut" ColumnName="HeureDebut" />
+          <ScalarProperty Name="HeureFin" ColumnName="HeureFin" />
+          <ScalarProperty Name="idEtu" ColumnName="idEtu" />
+          <ScalarProperty Name="IdCours" ColumnName="IdCours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
